@@ -1,0 +1,828 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101b30">
+<meta name="description" content="나의 숨겨진 강점과 잠재력을 발견하는 무료 역량 분석 서비스">
+<title>MY POTENTIAL | 무료 역량 분석</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --navy:#101b30;
+  --navy2:#192b49;
+  --gold:#c8a96b;
+  --lightgold:#ead9b2;
+  --bg:#f6f5f1;
+  --white:#ffffff;
+  --text:#26334a;
+  --muted:#8992a1;
+  --line:#e8e8e4;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:'Noto Sans KR',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+button { font-family:inherit; }
+
+.container {
+  width:min(100% - 36px,850px);
+  margin:auto;
+}
+
+header {
+  background:var(--navy);
+  color:white;
+  padding:20px 0;
+}
+
+.header-inner {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo {
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.logo span { color:var(--gold); }
+
+.header-tag {
+  font-size:11px;
+  color:var(--lightgold);
+  letter-spacing:2px;
+}
+
+.hero {
+  background:
+    radial-gradient(circle at 80% 15%,#344766 0%,transparent 35%),
+    linear-gradient(135deg,#101b30,#203452);
+  color:white;
+  text-align:center;
+  padding:85px 20px 90px;
+}
+
+.eyebrow {
+  color:var(--lightgold);
+  font-size:12px;
+  letter-spacing:4px;
+  font-weight:600;
+}
+
+.hero h1 {
+  font-size:clamp(30px,6vw,48px);
+  line-height:1.4;
+  margin:22px 0;
+  letter-spacing:-1.5px;
+}
+
+.hero h1 span { color:var(--gold); }
+
+.hero p {
+  color:#d0d8e4;
+  line-height:1.9;
+  font-size:14px;
+}
+
+.gold-btn {
+  display:inline-block;
+  background:linear-gradient(135deg,#ead9b2,#c8a96b);
+  color:#17243a;
+  padding:17px 38px;
+  border:0;
+  border-radius:5px;
+  font-weight:800;
+  font-size:15px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.gold-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 25px #c8a96b40;
+}
+
+.hero .gold-btn { margin-top:25px; }
+
+.features {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:-35px;
+  position:relative;
+}
+
+.feature {
+  background:white;
+  padding:25px 12px;
+  text-align:center;
+  border-radius:9px;
+  box-shadow:0 8px 30px #15243b0d;
+}
+
+.feature-icon {
+  font-size:25px;
+  margin-bottom:10px;
+}
+
+.feature strong {
+  display:block;
+  font-size:14px;
+}
+
+.feature small {
+  display:block;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.section {
+  padding:75px 0;
+}
+
+.section-title {
+  text-align:center;
+  margin-bottom:38px;
+}
+
+.section-title small {
+  color:#ad8d51;
+  letter-spacing:3px;
+  font-weight:700;
+}
+
+.section-title h2 {
+  font-size:27px;
+  margin:12px 0;
+}
+
+.section-title p {
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.intro-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.intro-card {
+  background:white;
+  padding:23px;
+  border-radius:8px;
+  border:1px solid var(--line);
+}
+
+.intro-card strong {
+  font-size:15px;
+}
+
+.intro-card p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+  margin-bottom:0;
+}
+
+#diagnosis {
+  display:none;
+  padding:65px 0;
+}
+
+.test-box {
+  background:white;
+  padding:clamp(20px,5vw,42px);
+  border-radius:12px;
+  box-shadow:0 10px 40px #101b3010;
+}
+
+.progress-top {
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+
+.progress {
+  height:5px;
+  background:#ecece9;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.progress-fill {
+  height:100%;
+  width:0;
+  background:var(--gold);
+  transition:.3s;
+}
+
+.question-number {
+  color:#b08d4d;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  margin-top:38px;
+}
+
+.question-title {
+  font-size:23px;
+  line-height:1.6;
+  margin:12px 0 25px;
+  word-break:keep-all;
+}
+
+.answers {
+  display:grid;
+  gap:12px;
+}
+
+.answer {
+  width:100%;
+  text-align:left;
+  padding:18px;
+  background:#fafaf8;
+  border:1px solid var(--line);
+  border-radius:7px;
+  font-size:14px;
+  color:var(--text);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.answer:hover {
+  border-color:var(--gold);
+  background:#fbf7ee;
+}
+
+.answer.selected {
+  border:2px solid var(--gold);
+  background:#fbf7ee;
+  font-weight:700;
+}
+
+.test-actions {
+  display:flex;
+  justify-content:space-between;
+  margin-top:30px;
+  gap:10px;
+}
+
+.secondary-btn {
+  background:white;
+  border:1px solid var(--line);
+  padding:13px 22px;
+  border-radius:5px;
+  cursor:pointer;
+  color:var(--text);
+}
+
+#result {
+  display:none;
+  padding:65px 0;
+}
+
+.result-header {
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:45px 20px;
+  border-radius:12px 12px 0 0;
+}
+
+.result-header small {
+  color:var(--lightgold);
+  letter-spacing:3px;
+}
+
+.result-header h2 {
+  font-size:29px;
+  margin:18px 0;
+}
+
+.result-header p {
+  font-size:13px;
+  color:#d0d8e4;
+  line-height:1.8;
+}
+
+.result-content {
+  background:white;
+  padding:clamp(20px,5vw,40px);
+  border-radius:0 0 12px 12px;
+}
+
+.result-content h3 {
+  font-size:19px;
+  margin:10px 0 25px;
+}
+
+.score-item {
+  margin:23px 0;
+}
+
+.score-label {
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:9px;
+}
+
+.score-track {
+  height:10px;
+  background:#efefec;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.score-value {
+  height:100%;
+  background:linear-gradient(90deg,#b38e50,#e5cf9e);
+  border-radius:10px;
+}
+
+.insight {
+  background:#f8f6f0;
+  border-left:3px solid var(--gold);
+  padding:23px;
+  margin-top:28px;
+  line-height:1.9;
+  font-size:13px;
+}
+
+.insight h4 {
+  margin:0 0 10px;
+  font-size:16px;
+}
+
+.insight p { margin:0; }
+
+.action-area {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+
+footer {
+  background:var(--navy);
+  color:#b8c1ce;
+  text-align:center;
+  padding:35px 15px;
+  font-size:11px;
+  line-height:2;
+}
+
+@media(max-width:600px) {
+  .hero { padding:65px 18px 75px; }
+  .features { gap:7px; }
+  .feature { padding:18px 5px; }
+  .feature strong { font-size:11px; }
+  .feature small { font-size:10px; }
+  .intro-grid { grid-template-columns:1fr; }
+  .question-title { font-size:19px; }
+  .section { padding:55px 0; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="logo">MY <span>POTENTIAL</span></div>
+    <div class="header-tag">DISCOVER YOURSELF</div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="container">
+    <div class="eyebrow">YOUR POTENTIAL IS LIMITLESS</div>
+    <h1>
+      당신 안에 숨겨진<br>
+      <span>가능성</span>을 발견하세요.
+    </h1>
+    <p>
+      당신이 미처 발견하지 못했던 강점과 재능.<br>
+      지금 나의 역량을 진단하고 새로운 가능성을 만나보세요.
+    </p>
+    <button class="gold-btn" onclick="startTest()">
+      무료 역량 분석 시작하기 →
+    </button>
+  </div>
+</section>
+
+<div class="container">
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">✦</div>
+      <strong>나의 강점 발견</strong>
+      <small>핵심 역량 진단</small>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">◎</div>
+      <strong>잠재력 분석</strong>
+      <small>성장 가능성 탐색</small>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">↗</div>
+      <strong>미래 방향 제안</strong>
+      <small>성장 전략 설계</small>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <small>ABOUT THE ANALYSIS</small>
+      <h2>무엇을 분석하나요?</h2>
+      <p>나를 이해하는 것에서 새로운 가능성은 시작됩니다.</p>
+    </div>
+
+    <div class="intro-grid">
+      <div class="intro-card">
+        <strong>01. 사고력</strong>
+        <p>문제를 이해하고 논리적으로 판단하는 능력</p>
+      </div>
+      <div class="intro-card">
+        <strong>02. 창의력</strong>
+        <p>새로운 아이디어와 가능성을 발견하는 능력</p>
+      </div>
+      <div class="intro-card">
+        <strong>03. 소통력</strong>
+        <p>사람들과 협력하고 관계를 형성하는 능력</p>
+      </div>
+      <div class="intro-card">
+        <strong>04. 실행력</strong>
+        <p>목표를 설정하고 실제 결과로 만들어내는 능력</p>
+      </div>
+      <div class="intro-card">
+        <strong>05. 분석력</strong>
+        <p>정보를 수집하고 패턴과 핵심을 파악하는 능력</p>
+      </div>
+      <div class="intro-card">
+        <strong>06. 성장 잠재력</strong>
+        <p>새로운 환경에 적응하고 발전하는 가능성</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="diagnosis">
+  <div class="container">
+    <div class="section-title">
+      <small>FREE POTENTIAL TEST</small>
+      <h2>나의 역량 진단</h2>
+      <p>정답은 없습니다. 평소 자신의 모습과 가장 가까운 답을 선택하세요.</p>
+    </div>
+
+    <div class="test-box">
+      <div class="progress-top">
+        <span>진단 진행 상황</span>
+        <span id="progressText">1 / 10</span>
+      </div>
+
+      <div class="progress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="question-number" id="questionNumber">QUESTION 01</div>
+      <h3 class="question-title" id="questionTitle"></h3>
+      <div class="answers" id="answers"></div>
+
+      <div class="test-actions">
+        <button class="secondary-btn" onclick="previousQuestion()">
+          ← 이전
+        </button>
+        <button class="gold-btn" onclick="nextQuestion()">
+          다음 →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="result">
+  <div class="container">
+    <div class="result-header">
+      <small>YOUR PERSONAL REPORT</small>
+      <h2>나의 역량 분석 결과</h2>
+      <p>응답을 바탕으로 정리한 당신의 역량 프로필입니다.</p>
+    </div>
+
+    <div class="result-content">
+      <h3>나의 핵심 역량 점수</h3>
+      <div id="scoreList"></div>
+
+      <div class="insight">
+        <h4 id="mainStrength"></h4>
+        <p id="strengthDescription"></p>
+      </div>
+
+      <div class="insight">
+        <h4>나의 성장 방향</h4>
+        <p id="growthAdvice"></p>
+      </div>
+
+      <div class="insight">
+        <h4>실천해 볼 성장 미션</h4>
+        <p id="mission"></p>
+      </div>
+
+      <div style="font-size:11px;color:#8992a1;margin-top:25px;line-height:1.8">
+        본 결과는 자기보고식 응답을 활용한 참고용 역량 탐색 결과입니다.
+        전문 심리검사나 객관적인 직무능력 평가를 대체하지 않습니다.
+      </div>
+
+      <div class="action-area">
+        <button class="gold-btn" onclick="window.print()">
+          결과 저장 / 인쇄
+        </button>
+        <button class="secondary-btn" onclick="restartTest()">
+          다시 진단하기
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="logo">MY <span>POTENTIAL</span></div>
+  <p>Discover Your Strength. Create Your Future.</p>
+  <p>© 2026 MY POTENTIAL. All Rights Reserved.</p>
+</footer>
+
+<script>
+const dimensions = [
+  "사고력","창의력","소통력","실행력","분석력"
+];
+
+const descriptions = {
+  사고력:"복잡한 문제를 이해하고 논리적인 판단을 내리는 능력이 돋보입니다.",
+  창의력:"기존의 틀을 벗어나 새로운 아이디어와 가능성을 찾아내는 성향이 돋보입니다.",
+  소통력:"사람들의 생각을 이해하고 관계를 연결하는 능력이 돋보입니다.",
+  실행력:"생각을 행동으로 옮기고 목표를 현실로 만드는 성향이 돋보입니다.",
+  분석력:"정보를 체계적으로 정리하고 핵심을 발견하는 능력이 돋보입니다."
+};
+
+const advice = {
+  사고력:"다양한 문제 해결 프로젝트에 참여하고, 자신의 판단 과정을 기록해 보세요.",
+  창의력:"새로운 아이디어를 매주 하나씩 실제 결과물로 만들어 보세요.",
+  소통력:"협업 프로젝트나 커뮤니티 활동을 통해 관계 형성 능력을 확장해 보세요.",
+  실행력:"작은 목표를 정하고 매주 완성하는 습관을 만들어 보세요.",
+  분석력:"데이터와 정보를 활용한 조사 및 분석 프로젝트를 경험해 보세요."
+};
+
+const questions = [
+{
+ q:"새로운 문제를 마주했을 때 나는?",
+ a:[
+  ["문제의 원인과 구조를 파악한다","사고력"],
+  ["다양한 해결 방법을 상상한다","창의력"],
+  ["주변 사람들과 의견을 나눈다","소통력"],
+  ["우선 직접 해결을 시도한다","실행력"],
+  ["관련 자료와 정보를 수집한다","분석력"]
+ ]
+},
+{
+ q:"내가 가장 즐거움을 느끼는 순간은?",
+ a:[
+  ["복잡한 문제를 해결했을 때","사고력"],
+  ["새로운 것을 만들어냈을 때","창의력"],
+  ["사람들에게 좋은 영향을 주었을 때","소통력"],
+  ["계획한 목표를 달성했을 때","실행력"],
+  ["숨겨진 사실을 발견했을 때","분석력"]
+ ]
+},
+{
+ q:"다른 사람들이 나에게 자주 부탁하는 일은?",
+ a:[
+  ["어려운 상황에 대한 판단과 조언","사고력"],
+  ["새로운 아이디어와 기획","창의력"],
+  ["대화와 관계 조율","소통력"],
+  ["일의 추진과 마무리","실행력"],
+  ["자료 정리와 정보 분석","분석력"]
+ ]
+},
+{
+ q:"새로운 일을 시작할 때 나는?",
+ a:[
+  ["전체적인 구조부터 이해한다","사고력"],
+  ["다양한 가능성을 상상한다","창의력"],
+  ["함께할 사람들을 먼저 찾는다","소통력"],
+  ["작게라도 바로 시작한다","실행력"],
+  ["필요한 정보를 먼저 조사한다","분석력"]
+ ]
+},
+{
+ q:"팀에서 나에게 가장 잘 어울리는 역할은?",
+ a:[
+  ["전략과 방향을 설계하는 사람","사고력"],
+  ["새로운 기획을 제안하는 사람","창의력"],
+  ["팀을 연결하고 조율하는 사람","소통력"],
+  ["목표 달성을 이끄는 사람","실행력"],
+  ["근거와 데이터를 검토하는 사람","분석력"]
+ ]
+},
+{
+ q:"예상하지 못한 실패를 경험했을 때 나는?",
+ a:[
+  ["문제의 본질을 다시 생각한다","사고력"],
+  ["다른 접근 방식을 떠올린다","창의력"],
+  ["주변에 조언과 도움을 요청한다","소통력"],
+  ["빠르게 다시 도전한다","실행력"],
+  ["실패 원인을 자세히 분석한다","분석력"]
+ ]
+},
+{
+ q:"내가 가장 자신 있게 배우는 방식은?",
+ a:[
+  ["원리와 개념을 이해하는 방식","사고력"],
+  ["직접 새로운 방법을 실험하는 방식","창의력"],
+  ["다른 사람과 이야기하며 배우는 방식","소통력"],
+  ["직접 실행하면서 익히는 방식","실행력"],
+  ["자료를 읽고 비교하는 방식","분석력"]
+ ]
+},
+{
+ q:"어떤 프로젝트를 맡는다면 가장 끌리는 일은?",
+ a:[
+  ["문제 해결 전략 만들기","사고력"],
+  ["새로운 서비스 기획하기","창의력"],
+  ["사람들과 협력하고 네트워크 만들기","소통력"],
+  ["사업이나 프로젝트 실행하기","실행력"],
+  ["시장과 고객 데이터 분석하기","분석력"]
+ ]
+},
+{
+ q:"내가 발전시키고 싶은 능력은?",
+ a:[
+  ["더 깊이 생각하고 판단하는 능력","사고력"],
+  ["새로운 아이디어를 만드는 능력","창의력"],
+  ["사람들과 소통하는 능력","소통력"],
+  ["목표를 끝까지 완수하는 능력","실행력"],
+  ["정보를 정확하게 분석하는 능력","분석력"]
+ ]
+},
+{
+ q:"미래의 나를 가장 잘 표현하는 모습은?",
+ a:[
+  ["통찰력 있는 전략가","사고력"],
+  ["새로운 가치를 만드는 창조자","창의력"],
+  ["사람들에게 영감을 주는 리더","소통력"],
+  ["아이디어를 현실로 만드는 실행가","실행력"],
+  ["데이터로 기회를 발견하는 전문가","분석력"]
+ ]
+}
+];
+
+let current = 0;
+let selections = Array(questions.length).fill(null);
+
+function startTest(){
+  document.getElementById("home").style.display="none";
+  document.querySelector(".features").style.display="none";
+  document.querySelector(".section").style.display="none";
+  document.getElementById("diagnosis").style.display="block";
+  renderQuestion();
+  document.getElementById("diagnosis").scrollIntoView();
+}
+
+function renderQuestion(){
+  const q=questions[current];
+
+  document.getElementById("questionNumber").textContent=
+    "QUESTION "+String(current+1).padStart(2,"0");
+
+  document.getElementById("questionTitle").textContent=q.q;
+
+  document.getElementById("progressText").textContent=
+    (current+1)+" / "+questions.length;
+
+  document.getElementById("progressFill").style.width=
+    ((current+1)/questions.length*100)+"%";
+
+  document.getElementById("answers").innerHTML="";
+
+  q.a.forEach((answer,index)=>{
+    const button=document.createElement("button");
+    button.className="answer"+
+      (selections[current]===index?" selected":"");
+
+    button.textContent=answer[0];
+
+    button.onclick=()=>{
+      selections[current]=index;
+      renderQuestion();
+    };
+
+    document.getElementById("answers").appendChild(button);
+  });
+}
+
+function previousQuestion(){
+  if(current>0){
+    current--;
+    renderQuestion();
+  }
+}
+
+function nextQuestion(){
+  if(selections[current]===null){
+    alert("답변을 하나 선택해 주세요.");
+    return;
+  }
+
+  if(current<questions.length-1){
+    current++;
+    renderQuestion();
+  }else{
+    calculateResult();
+  }
+}
+
+function calculateResult(){
+  const scores={};
+  dimensions.forEach(d=>scores[d]=0);
+
+  selections.forEach((selection,index)=>{
+    const dimension=questions[index].a[selection][1];
+    scores[dimension]++;
+  });
+
+  const sorted=Object.entries(scores)
+    .sort((a,b)=>b[1]-a[1]);
+
+  const highest=sorted[0][0];
+  const lowest=sorted[sorted.length-1][0];
+
+  document.getElementById("scoreList").innerHTML=
+    sorted.map(([name,score])=>`
+      <div class="score-item">
+        <div class="score-label">
+          <span>${name}</span>
+          <span>${score*10}점</span>
+        </div>
+        <div class="score-track">
+          <div class="score-value" style="width:${score*10}%"></div>
+        </div>
+      </div>
+    `).join("");
+
+  document.getElementById("mainStrength").textContent=
+    "당신의 대표 역량은 "+highest+"입니다.";
+
+  document.getElementById("strengthDescription").textContent=
+    descriptions[highest];
+
+  document.getElementById("growthAdvice").textContent=
+    advice[lowest];
+
+  document.getElementById("mission").textContent=
+    "앞으로 7일 동안 "+highest+
+    " 역량을 활용할 수 있는 작은 프로젝트 하나를 완성해 보세요. "+
+    "과정과 결과를 기록하면 자신에게 맞는 성장 방향을 찾는 데 도움이 됩니다.";
+
+  document.getElementById("diagnosis").style.display="none";
+  document.getElementById("result").style.display="block";
+  document.getElementById("result").scrollIntoView();
+}
+
+function restartTest(){
+  current=0;
+  selections=Array(questions.length).fill(null);
+
+  document.getElementById("result").style.display="none";
+  document.getElementById("home").style.display="block";
+  document.querySelector(".features").style.display="grid";
+  document.querySelector(".section").style.display="block";
+
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
